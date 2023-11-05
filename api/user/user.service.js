@@ -69,6 +69,7 @@ async function update(user) {
     try {
         // peek only updatable properties
         const userToSave = {
+            ...user,
             _id: ObjectId(user._id), // needed for the returnd obj
             wishlist: user.wishlist,
         }

@@ -16,7 +16,7 @@ async function query(filterBy = { txt: '', label: '', guests: '', pageIdx: 0 }) 
             ]
         }
         if (filterBy.label) {
-            criteria.type = { $regex: filterBy.txt, $options: 'i' }
+            criteria.type = { $regex: filterBy.label, $options: 'i' }
         }
         if (filterBy.guests) {
             criteria.capacity = { $gte: filterBy.guests }
