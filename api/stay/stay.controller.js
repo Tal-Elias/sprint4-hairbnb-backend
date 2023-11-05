@@ -9,7 +9,7 @@ export async function getStays(req, res) {
         const filterBy = {
             txt: txt || '',
             label: label || '',
-            guests: guests || 0,
+            guests: +guests || 0,
             pageIdx: pageIdx ? +pageIdx : undefined
         }
         const stays = await stayService.query(filterBy)
