@@ -3,7 +3,6 @@ import { logger } from '../services/logger.service.js'
 import { asyncLocalStorage } from '../services/als.service.js'
 
 export function requireAuth(req, res, next) {
-    // console.log('hiiiiiiiiiiiiiiii')
     const { loggedinUser } = asyncLocalStorage.getStore()
     // console.log('loggedinUser:', loggedinUser)
     req.loggedinUser = loggedinUser

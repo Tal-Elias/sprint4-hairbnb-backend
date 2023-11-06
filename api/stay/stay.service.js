@@ -72,7 +72,7 @@ async function add(stay) {
 async function update(stay) {
     try {
         const stayToSave = {
-            vendor: stay.vendor,
+            stay: stay.vendor,
             price: stay.price
         }
         const collection = await dbService.getCollection('stay')

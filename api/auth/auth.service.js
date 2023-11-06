@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 import { userService } from '../user/user.service.js'
 import { logger } from '../../services/logger.service.js'
 
-const cryptr = new Cryptr(process.env.SECRET || 'Secret-Puk-1234')
+const cryptr = new Cryptr(process.env.SECRET || 'hairbnb')
 
 export const authService = {
     signup,
@@ -37,11 +37,16 @@ async function signup({ username, password, fullname, imgUrl }) {
     if (userExist) return Promise.reject('Username already taken')
 
     const hash = await bcrypt.hash(password, saltRounds)
-    return userService.add({ username, password: hash, fullname, imgUrl })
+    return userService.add({ username, password: hash, fullname })
 }
 
 function getLoginToken(user) {
-    const userInfo = { _id: user._id, fullname: user.fullname, isAdmin: user.isAdmin, score: user.score }
+    const userInfo = {
+        _id: user._id,
+        fullname: user.fullname,
+        imgUrl: user.imgUrl,
+        isAdmin: user.isAdmin
+    }
     return cryptr.encrypt(JSON.stringify(userInfo))
 }
 
