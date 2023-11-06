@@ -37,7 +37,7 @@ export async function addOrder(req, res) {
         order.buyer = loggedinUser
         order.status = 'pending'
         const addedOrder = await orderService.add(order)
-        socketService.broadcast({ type: 'order-added', data: addedOrder, userId: loggedinUser._id })
+        socketService.emitToUser({ type: 'order-added', data: '', userId: order.hostId })
         res.json(addedOrder)
     } catch (err) {
         logger.error('Failed to add order', err)

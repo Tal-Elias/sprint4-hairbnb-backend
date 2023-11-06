@@ -3,9 +3,11 @@ import { logger } from '../services/logger.service.js'
 import { asyncLocalStorage } from '../services/als.service.js'
 
 export function requireAuth(req, res, next) {
+    // console.log('hiiiiiiiiiiiiiiii')
     const { loggedinUser } = asyncLocalStorage.getStore()
+    // console.log('loggedinUser:', loggedinUser)
     req.loggedinUser = loggedinUser
-
+    // console.log('req.loggedinUser:', req.loggedinUser)
     if (config.isGuestMode && !loggedinUser) {
         req.loggedinUser = { _id: '', fullname: 'Guest' }
         return next()
