@@ -4,7 +4,7 @@ import { utilService } from '../../services/util.service.js'
 import mongodb from 'mongodb'
 const { ObjectId } = mongodb
 
-const PAGE_SIZE = 30
+const PAGE_SIZE = 60
 
 async function query(filterBy = { txt: '', label: '', guests: '', pageIdx: 0 }) {
     try {
