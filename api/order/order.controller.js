@@ -34,12 +34,12 @@ export async function addOrder(req, res) {
     if (!loggedinUser._id) return
     try {
         const order = req.body
-        console.log('order:', order)
         order.buyer = {
             _id: loggedinUser._id,
             fullname: loggedinUser.fullname,
             imgUrl: loggedinUser.imgUrl
         }
+        order.createdAt = new Date().getTime()
         const addedOrder = await orderService.add(order)
         socketService.emitToUser({ type: 'order-added', data: '', userId: order.hostId })
         res.json(addedOrder)
@@ -54,7 +54,7 @@ export async function updateOrder(req, res) {
     try {
         const order = req.body
         const updatedOrder = await orderService.update(order)
-        console.log('updatedOrder:', updatedOrder)
+        socketService.emitToUser({ type: 'order-updated', data: '', userId: order.buyer._id })
         res.json(updatedOrder)
     } catch (err) {
         logger.error('Failed to update order', err)

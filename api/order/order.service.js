@@ -14,7 +14,7 @@ async function query(filterBy = { buyerId: '', hostId: '' }) {
             criteria['buyer._id'] = filterBy.buyerId
         }
         const collection = await dbService.getCollection('order')
-        const orders = await collection.find(criteria).toArray()
+        const orders = await collection.find(criteria).sort({ createdAt: -1 }).toArray()
         return orders
     } catch (err) {
         logger.error('cannot find orders', err)
