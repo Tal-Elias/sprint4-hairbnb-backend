@@ -5,12 +5,13 @@ import { socketService } from '../../services/socket.service.js'
 export async function getStays(req, res) {
     try {
         logger.debug('Getting Stays:', req.query)
-        const { txt, label, guests, pageIdx } = req.query
+        const { txt, label, guests, pageIdx , userWishlist} = req.query
         const filterBy = {
             txt: txt || '',
             label: label || '',
             guests: +guests || 0,
-            pageIdx: pageIdx ? +pageIdx : undefined
+            pageIdx: pageIdx ? +pageIdx : undefined,
+            userWishlist: userWishlist || []
         }
         const stays = await stayService.query(filterBy)
         res.json(stays)

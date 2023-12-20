@@ -8,6 +8,7 @@ const PAGE_SIZE = 60
 
 async function query(filterBy = { txt: '', label: '', guests: '', pageIdx: 0 }) {
     try {
+        console.log('filterBy from service:', filterBy)
         const criteria = {}
         if (filterBy.txt) {
             criteria.$or = [
@@ -20,6 +21,10 @@ async function query(filterBy = { txt: '', label: '', guests: '', pageIdx: 0 }) 
         }
         if (filterBy.guests) {
             criteria.capacity = { $gte: filterBy.guests }
+        }
+        if (filterBy.userWishlist.length) {
+            const userWishlist = filterBy.userWishlist.map(id => new ObjectId(id))
+            criteria._id = { $in: userWishlist }
         }
         const collection = await dbService.getCollection('stay')
         var stayCursor = await collection.find(criteria)
